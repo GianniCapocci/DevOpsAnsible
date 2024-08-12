@@ -24,7 +24,7 @@
 
       - name: "Clone the Spring repository"
         git:
-            repo: "git@github.com:GianniCapocci/DevOps.git"
+            repo: "https://github.com/GianniCapocci/DevOps.git"
             dest: "{{ appdir }}"
             version: "{{ branch }}"
             force: yes
