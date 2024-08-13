@@ -1,19 +1,21 @@
 ---
 - hosts: appservers
-  become: yes
+  # become: yes
   tasks:
 
   - name: Check if Docker is installed
     shell: docker --version && docker compose version
     register: docker_version_result
     ignore_errors: true
+    become: yes
 
   - name: Set Docker installed fact
     set_fact:
       docker_installed: "{{ docker_version_result.rc == 0 }}"
 
-  - name: Include install_docker playbook if Docker is not installed
-    include_tasks: docker.yaml
+  - name: Include docker playbook if Docker is not installed
+    import_tasks: docker.yaml
+    become: yes
     when: not docker_installed
 
   - name: "Clone the Spring repository"
@@ -36,6 +38,7 @@
     community.docker.docker_compose:
       project_src: "{{ appdir }}"
       state: absent
+    become: yes
 
   - name: Create and start services
     docker_compose:
@@ -44,6 +47,7 @@
       state: present
     register: output
     notify: Restart Docker Compose
+    become: yes
 
   - debug:
       var: output
@@ -53,3 +57,4 @@
       community.docker.docker_compose:
         project_src: "{{ appdir }}"
         restarted: true
+      become: yes
