@@ -1,6 +1,5 @@
 ---
 - hosts: appservers
-  # become: yes
   tasks:
 
   - name: Check if Docker is installed

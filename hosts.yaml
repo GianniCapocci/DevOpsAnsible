@@ -21,8 +21,3 @@ dbservers:
     #     ansible_host: dbserver
     azure-db-server:
         ansible_host: devopsdb
-
-k8sservers:
-  hosts:
-    azure-k8s-server:
-      ansible_host: devopsk8s
