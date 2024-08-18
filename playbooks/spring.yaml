@@ -4,18 +4,18 @@
   pre_tasks:
     - name: Install Java
       apt:
-          name: openjdk-17-jdk
-          state: present
-          update_cache: yes
+        name: openjdk-17-jdk
+        state: present
+        update_cache: yes
       become: yes
 
   tasks:
     - name: "Clone the Spring repository"
       git:
-          repo: "https://github.com/GianniCapocci/DevOps.git"
-          dest: "{{ appdir }}"
-          version: "{{ branch }}"
-          force: yes
+        repo: "https://github.com/GianniCapocci/DevOps.git"
+        dest: "{{ appdir }}"
+        version: "{{ branch }}"
+        force: yes
 
     - name: "Populate application.properties"
       lineinfile:
@@ -29,7 +29,7 @@
     - name: "Build the Spring application"
       command: "./mvnw package -Dmaven.test.skip "
       args:
-          chdir: "{{ appdir }}"
+        chdir: "{{ appdir }}"
 
     - name: copy spring service file
       template:

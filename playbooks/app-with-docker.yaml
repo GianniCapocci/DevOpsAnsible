@@ -44,12 +44,8 @@
       project_src: "{{ appdir }}"
       build: true
       state: present
-    register: output
     notify: Restart Docker Compose
     become: yes
-
-  - debug:
-      var: output
 
   handlers:
     - name: Restart Docker Compose
